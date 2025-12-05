@@ -16,12 +16,14 @@
         }
 
         /* Asegurar que el canvas esté atrás */
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
+       canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
 
         /* Mensajes cayendo */
         .rain-message {
@@ -97,7 +99,8 @@
     </script>
 
     <!-- Constelación -->
-    <canvas id="stars"></canvas>
+  <canvas id="stars" width="1920" height="1080"></canvas>
+
 
     <script>
         const canvas = document.getElementById("stars");
@@ -143,3 +146,4 @@
 
 </body>
 </html>
+
