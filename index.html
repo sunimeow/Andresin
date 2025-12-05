@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>meow ✦</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at top, #1c2b40, #0a0f1a);
+            overflow: hidden;
+            font-family: "Poppins", sans-serif;
+            color: #d6eaff;
+        }
+
+       
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+   
+        .rain-message {
+            position: fixed;
+            top: -50px;
+            font-size: 18px;
+            color: #cfe6ff;
+            opacity: 0.85;
+            animation: fall linear infinite;
+            white-space: nowrap;
+            text-shadow: 0 0 8px #7ab8ff;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-50px); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(120vh); opacity: 0; }
+        }
+
+      
+        h1 {
+            position: fixed;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-weight: 300;
+            font-size: 26px;
+            letter-spacing: 2px;
+            color: #e9f4ff;
+            text-shadow: 0 0 12px #7ab8ff;
+        }
+    </style>
+</head>
+
+<body>
+
+ 
+    <audio autoplay loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1>meow:3 ✦</h1>
+
+  
+    <script>
+        const mensajes = [
+          
+            "holito :D",
+            "no puedo dormir jejejej",
+            "t kierooo wuuuwuuw",
+            "ñam",
+            "ñom ñom",
+            "q proposito tengo fak",
+            "mucho tiempo libre",
+            "meow",
+            "t amito",
+            "pov ves lo q hace un suni fracasado kuando anda crikosillo",
+            "ñyom"
+          
+        ];
+
+        function crearMensaje() {
+            const msg = document.createElement("div");
+            msg.className = "rain-message";
+            msg.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
+
+            msg.style.left = Math.random() * window.innerWidth + "px";
+            msg.style.animationDuration = (5 + Math.random() * 6) + "s";
+
+            document.body.appendChild(msg);
+
+            setTimeout(() => {
+                msg.remove();
+            }, 12000);
+        }
+
+        setInterval(crearMensaje, 1500);
+    </script>
+
+  
+    <canvas id="starfield"></canvas>
+
+    <script>
+        const canvas = document.getElementById("starfield");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const stars = [];
+
+        for (let i = 0; i < 150; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 2,
+                speed: 0.2 + Math.random() * 0.3
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#dceeff";
+
+            stars.forEach(s => {
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Movimiento leve tipo lluvia diagonal
+                s.y += s.speed;
+                s.x -= s.speed * 0.3;
+
+                if (s.y > canvas.height) s.y = -5;
+                if (s.x < 0) s.x = canvas.width;
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
+</body>
+</html>
