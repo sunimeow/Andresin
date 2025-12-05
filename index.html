@@ -3,35 +3,37 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>meow ✦</title>
+    <title>Constelación de Andree ✦</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at top, #1c2b40, #0a0f1a);
+            background: radial-gradient(circle at top, #162230, #0a0e16);
             overflow: hidden;
             font-family: "Poppins", sans-serif;
             color: #d6eaff;
         }
 
-       
+        /* Asegurar que el canvas esté atrás */
         canvas {
             position: fixed;
             top: 0;
             left: 0;
+            z-index: -1;
         }
 
-   
+        /* Mensajes cayendo */
         .rain-message {
             position: fixed;
             top: -50px;
-            font-size: 18px;
+            font-size: 20px;
             color: #cfe6ff;
-            opacity: 0.85;
+            opacity: 0.9;
             animation: fall linear infinite;
             white-space: nowrap;
-            text-shadow: 0 0 8px #7ab8ff;
+            text-shadow: 0 0 10px #8ac0ff;
+            z-index: 5;
         }
 
         @keyframes fall {
@@ -40,46 +42,43 @@
             100% { transform: translateY(120vh); opacity: 0; }
         }
 
-      
+        /* Título visible */
         h1 {
             position: fixed;
             top: 20px;
             width: 100%;
             text-align: center;
             font-weight: 300;
-            font-size: 26px;
+            font-size: 28px;
             letter-spacing: 2px;
             color: #e9f4ff;
-            text-shadow: 0 0 12px #7ab8ff;
+            text-shadow: 0 0 15px #7ab8ff;
+            z-index: 10;
         }
     </style>
 </head>
 
 <body>
 
- 
+    <!-- Música -->
     <audio autoplay loop>
         <source src="musica.mp3" type="audio/mpeg">
     </audio>
 
-    <h1>meow:3 ✦</h1>
+    <h1>Constelación de Andree ✦</h1>
 
-  
     <script>
+        /* TUS MENSAJES */
         const mensajes = [
-          
             "holito :D",
-            "no puedo dormir jejejej",
-            "t kierooo wuuuwuuw",
-            "ñam",
-            "ñom ñom",
-            "q proposito tengo fak",
-            "mucho tiempo libre",
-            "meow",
-            "t amito",
-            "pov ves lo q hace un suni fracasado kuando anda crikosillo",
-            "ñyom"
-          
+            "no puedo dormir",
+            "t kiero",
+            "ñam ñam",
+            "pov ves lo q hace un suni fracasado cuando anda crikosillo",
+            "ñyom",
+            "t amito:3",
+            "m matarw",
+            "wawaawa",
         ];
 
         function crearMensaje() {
@@ -88,61 +87,58 @@
             msg.innerText = mensajes[Math.floor(Math.random() * mensajes.length)];
 
             msg.style.left = Math.random() * window.innerWidth + "px";
-            msg.style.animationDuration = (5 + Math.random() * 6) + "s";
+            msg.style.animationDuration = (6 + Math.random() * 6) + "s";
 
             document.body.appendChild(msg);
-
-            setTimeout(() => {
-                msg.remove();
-            }, 12000);
+            setTimeout(() => msg.remove(), 13000);
         }
 
-        setInterval(crearMensaje, 1500);
+        setInterval(crearMensaje, 1800);
     </script>
 
-  
-    <canvas id="starfield"></canvas>
+    <!-- Constelación -->
+    <canvas id="stars"></canvas>
 
     <script>
-        const canvas = document.getElementById("starfield");
+        const canvas = document.getElementById("stars");
         const ctx = canvas.getContext("2d");
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.onresize = resizeCanvas;
 
         const stars = [];
-
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 200; i++) {
             stars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                speed: 0.2 + Math.random() * 0.3
+                size: Math.random() * 1.8 + 0.5,
+                speed: 0.2 + Math.random() * 0.4
             });
         }
 
-        function animate() {
+        function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#cfe6ff";
 
-            ctx.fillStyle = "#dceeff";
-
-            stars.forEach(s => {
+            for (let s of stars) {
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Movimiento leve tipo lluvia diagonal
                 s.y += s.speed;
-                s.x -= s.speed * 0.3;
+                s.x -= s.speed * 0.2;
 
                 if (s.y > canvas.height) s.y = -5;
                 if (s.x < 0) s.x = canvas.width;
-            });
+            }
 
-            requestAnimationFrame(animate);
+            requestAnimationFrame(draw);
         }
-
-        animate();
+        draw();
     </script>
 
 </body>
